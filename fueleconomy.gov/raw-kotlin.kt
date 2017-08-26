@@ -73,4 +73,24 @@ fun main(args : Array<String>) {
     val sliced = when { arrs.size >= 3 -> arrs.slice(0..2);  else -> arrs }
     println("$maker $sliced")
   }
+
+  //各年に何台、atvtype（新生代燃料）の車が発表されたか
+  val n = df.map { 
+    Pair(it["atvType"], it["year"])
+  }.filter {
+    it.second.toString().length  == 4
+  }.map { 
+    val r = when { 
+      it.first != "" && it.first != "Diesel" -> "eco " + it.second.toString()
+      else -> "noecho " + it.second.toString()
+    }
+    r
+  }.groupBy {
+    it
+  }.toList().map {
+    val type_year = it.first
+    val amount = it.second.size
+    val r = Pair(type_year, amount)
+    println("${r.first} ${r.second}")
+  }
 }
