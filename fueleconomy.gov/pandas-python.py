@@ -29,3 +29,13 @@ for make, group in mgroup:
   arr.columns = ['model', 'fuelCost08']
   print( arr.sort_values('fuelCost08').head() )
 
+# 各年に何台、atvtype（新生代燃料）の車が発表されたか
+df6 = df.filter(items=['atvType', 'year'])
+# atvTypeがDieaselと　’’をスキップ
+df6 = df6[ df6.apply(lambda x: x['atvType'] not in [np.nan, 'Diesel', ''], axis=1) ]
+print( df6.head() )
+
+mgroup = df6.groupby(['year'])
+df7 = pd.DataFrame( [ [m, len(group['atvType'].tolist())] for m,group in mgroup] )
+df7.columns = ['year', 'freq']
+print( df7.sort_values(['year'], ascending=False).head(20) )
