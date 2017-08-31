@@ -1,5 +1,6 @@
-# Kotlin, Rubyによるデータ分析
-明確に言葉にならなかった部分がだんだんボキャブラリが増えたり、知っていることが増えたりしたので説明できると思います  
+# Kotlin, Rubyによるビッグデータに耐えうるデータ分析のデザイン
+
+明確に言葉にならなかった部分がだんだんボキャブラリが増えたり、知っていることが増えたりしたので説明できると思います  
 
 データ分析という言葉が出てくる話であると、ほとんどの場合、Excel, Python, R, SQLなどで分析する環境がほとんどです  
 一部、BigDataの話ではJavaなどがあるので、JVMで動く言語Scalaなどを用いることができます
@@ -217,7 +218,7 @@ File.readlines('911report.txt').map { |x|
 ## SQLとラムダ式での等価な例
 機能的に等価ですが、SQLとKotlinでどう違うのか、記していきます  
 使用したデータは[こちら](http://www.fueleconomy.gov/feg/ws/index.shtml)　　
-### Distict
+### Distinct
 車のメーカでDistinctします
 ```sql
 SELECT distinct make FROM vehicles;
