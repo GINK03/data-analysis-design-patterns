@@ -301,7 +301,7 @@ df.map {
 
 ### 関数型言語が得意なデータ変換の例
 <p align="center">
-  <img align="center" width="500px" src="https://user-images.githubusercontent.com/4949982/29914535-dba6df30-8e73-11e7-89fc-9d07a046c807.png">
+  <img align="center" width="650px" src="https://user-images.githubusercontent.com/4949982/29914535-dba6df30-8e73-11e7-89fc-9d07a046c807.png">
 </p>
 
 ## 圏論の観点から
