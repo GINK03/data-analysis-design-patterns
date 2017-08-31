@@ -62,8 +62,8 @@ p.apply( TextIO.Read.from("gs://dataflow-samples/shakespeare/*") ) // 入力バ�
 // run this pipeline 
 p.run();
 ```
-## CSVファイルをRubyでデータをメソッドチェーンで処理する
-CSVファイルをRubyのメソッドチェーンで処理するとこのようになります　　
+## CSVファイルをRubyでデータをPipeline形式で処理する
+CSVファイルをRubyのPipeline形式で処理するとこのようになります　　
 
 Rubyはこのように、Pandasなどのフレームワークに相当する[daru](https://github.com/SciRuby/daru)を使わずとも処理することができます  
 
@@ -92,8 +92,10 @@ df.map{ |x|
   }
 }
 ```
-## CSVファイルをKotlinでデータをメソッドチェーンで集計する
-Kotlinでも同様の記述ができて、データパイプラインのような表現することができます  
+## CSVファイルをKotlinでデータをPipeline形式で集計する
+Kotlinでも同様の記述ができて、Pipeline形式のような表現することができます  
+
+ここでは記していませんが、[letを用いることで、データや関数の戻り値を次の関数につなぐことも](https://discuss.kotlinlang.org/t/pipe-forward-operator/2098/14)できます　　
 ```kotlin
 // 各メーカで燃費が良い車種トップ5
 df.map { 
