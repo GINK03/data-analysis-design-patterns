@@ -299,6 +299,11 @@ df.map {
 }
 ```
 
+### 関数型言語が得意なデータ変換の例
+<p align="center">
+  <img align="center" width="500px" src="https://user-images.githubusercontent.com/4949982/29914535-dba6df30-8e73-11e7-89fc-9d07a046c807.png">
+</p>
+
 ## 圏論の観点から
 ラムダ式によるデータの変換は、圏論の話題として時たま上がります　　
 
