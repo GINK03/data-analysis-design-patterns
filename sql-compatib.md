@@ -1,5 +1,5 @@
 
-## SQL, Pandas, MapReduceにおけるそれぞれの集計・分析
+## SQL, Pandas, 関数型言語におけるそれぞれの集計・分析
 
 ### 乱立するデータ集計技術
 ビッグデータだの、人工知能だのバズワードが様々に叫ばれていますが、今でも主流はエクセルで分析しているということを聞いたりします。  
@@ -27,8 +27,8 @@
 メリットとしては、Pythonはそれなりに使える人が多いし、Excelをこねくり回すよりだいぶマシで、SQLとやりたいことは同じことができます  
 デメリットとしては、Pandasの作り自体が独自のエコシステムを形成しており、SQLや関数型の考えとも微妙に異なっており、独自のポジジョンにいることで学習コストがかさみがちです
 
-#### 関数型ライク
-MapReduceのアーキテクチャが提案されてから、どんなに巨大なデータでも、この仕組みの上に載せることで、集計が可能になりました。  
+#### 関数型言語（MapReduceなどを操作を想定）
+MapReduceのアーキテクチャが提案されてから、どんなに巨大なデータでも、この仕組みの上に載せることで、集計が可能になりました。  
 関数型言語のmap関数とreduce関数にヒントを得て作られており、畳み込み（fold）に該当する操作を行うReduceのリソースをうまく分散処理させられれば、どんなデータでも処理可能です。　　 
 
 メリットとしては、プログラミングをして集計をするので、かなり柔軟であり、複雑怪奇な非構造化データでも処理可能です。  
@@ -94,7 +94,6 @@ sqlite> PRAGMA table_info(facts);
 ### jupyter notebook上での実行です
 一つのSQLのクエリとして知っておくべき最小での粒度での、例をSQL, Pandas, 関数型の順で示します  
 本当は関数型はKotlinで書きたかったのですが、Jupyter上でPythonとKotlinを両方一つのノートブックで使う方法がわからなかったので、Rubyで書いています(Rubyは別に関数型言語ではないですが、SyntaxはGoogle Cloud DataFlowやSparkなどに似せられるので、そのように書きました。)
-
 
 ```python
 # SQLITEのデータをメモリ上にロードします
@@ -261,9 +260,6 @@ sqlite> PRAGMA table_info(facts);
     </tr>
 </table>
 
-
-
-
 ```python
 # pandasで処理するために、まずdataframe(df)に読み込みます
 import sqlite3
@@ -271,7 +267,6 @@ import pandas as pd
 conn = sqlite3.connect("/var/jobs.db")
 df = pd.read_sql_query("SELECT * FROM recent_grads ;", conn)
 ```
-
 
 ```python
 rank_major = df[["Rank", "Major"]]
@@ -958,7 +953,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
     [70, "UNITED STATES HISTORY"]
     [72, "AGRICULTURAL ECONOMICS"]
 
-
 ### 就職者数が10000人を超える専攻と就職者数を10件の行を表示する
 
 ```python
@@ -1258,7 +1252,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 
 
 ### 女性率が50%を超え、非雇用率が5.1%未満の"専攻"と"専攻のカテゴリ"について、10行取り出す
-
 
 ```python
 #sql
@@ -1657,7 +1650,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
     ["ENGINEERING MECHANICS PHYSICS AND SCIENCE", "Engineering", 3608, 0.006334343]
     ["INDUSTRIAL AND MANUFACTURING ENGINEERING", "Engineering", 15604, 0.042875544]
 
-
 ###  専攻をアルファベットを降順にソートして10行取り出す
 
 ```python
@@ -1762,7 +1754,6 @@ asd.head(10)
 </table>
 </div>
 
-
 ```ruby
 %%ruby
 require "sqlite3"
@@ -1785,7 +1776,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
     "STUDIO ARTS"
     "STATISTICS AND DECISION SCIENCE"
     "SPECIAL NEEDS EDUCATION"
-
 
 ### 専攻をアルファベットで昇順、給与で降順で、20行を表示する
 
@@ -1904,7 +1894,6 @@ LIMIT 20;
         <td>BIOMEDICAL ENGINEERING</td>
     </tr>
 </table>
-
 
 ```python
 tri = df[["Major_category", "Median", "Major"]].sort_values(by=["Major", "Median"], ascending=[True, False])
@@ -2130,9 +2119,7 @@ p r
 
     228
 
-
 ### birth_rateの合計値を計算
-
 
 ```python
 #sql
@@ -2148,7 +2135,6 @@ FROM facts;
         <td>4406.909999999998</td>
     </tr>
 </table>
-
 
 ```python
 # pandas
@@ -2171,9 +2157,7 @@ p r
 
     4406.909999999998
 
-
 ### birth_rateの平均値の計算
-
 
 ```python
 %sql SELECT AVG(birth_rate) \
@@ -2209,7 +2193,6 @@ p all.reduce{|y,x| y+x }/all.size
 
 
 ### 出生率をUniq(Distinct)して、人口が2000万を超えるデータの平均値を計算する
-
 
 ```python
 # sql
@@ -2254,7 +2237,6 @@ p all.reduce { |y,x| y+x}/all.size
 ここから、データセットをjobs.dbに戻します  
 groupbyなど一歩踏み込んだSQLのオペレーションであっても、Pandasや関数型言語でも同様に扱えることを示します
 
-
 ```python
 # sqliteをメモリにロード
 %sql sqlite:////var/jobs.db
@@ -2264,7 +2246,6 @@ df = pd.read_sql_query("select * from recent_grads;", conn)
 ```
 
 ### 専攻カテゴリごとにおける、女性率の平均値の計算
-
 
 ```python
 #sql
@@ -2344,12 +2325,10 @@ GROUP BY Major_category;
     </tr>
 </table>
 
-
 ```python
 #  pandas
 df[ ["Major_category", "ShareWomen"] ].groupby( ["Major_category"]).mean()
 ```
-
 
 <div>
 <table border="1" class="dataframe">
@@ -2431,7 +2410,6 @@ df[ ["Major_category", "ShareWomen"] ].groupby( ["Major_category"]).mean()
   </tbody>
 </table>
 </div>
-
 
 ```ruby
 %%ruby
