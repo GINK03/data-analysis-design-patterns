@@ -1084,7 +1084,6 @@ major_employed.head(10)
 </div>
 
 ### 女性率が50%を超えて、かつ従業員が10000人を超える専攻を10行取り出す
-Run the query above, which returns all of the female-majority majors with more than 10000 employed graduates
 
 ```python
 #sql
