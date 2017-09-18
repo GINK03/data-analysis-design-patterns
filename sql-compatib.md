@@ -107,7 +107,8 @@ sqlite> PRAGMA table_info(facts);
 
     The sql extension is already loaded. To reload it, use:
       %reload_ext sql
-    Done.
+    
+    .
 
 
 
@@ -222,12 +223,6 @@ sqlite> PRAGMA table_info(facts);
 %sql SELECT Rank, Major FROM recent_grads LIMIT 10;
 ```
 
-    Done.
-
-
-
-
-
 <table>
     <tr>
         <th>Rank</th>
@@ -292,23 +287,7 @@ rank_major = df[["Rank", "Major"]]
 rank_major.head(10)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -372,9 +351,6 @@ rank_major.head(10)
 </table>
 </div>
 
-
-
-
 ```ruby
 %%ruby
 ## Jupyter notebookでrubyで記述するとこのように表現できる（毎回読み込む必要がある）
@@ -404,16 +380,9 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 
 ### Rank,Major_code,Major,Major_category,Total列に限定して、20件の行を取り出す
 
-
 ```python
 %sql SELECT Rank,Major_code,Major,Major_category,Total FROM recent_grads limit 20;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -566,15 +535,10 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 </table>
 
 
-
-
 ```python
 step2 = df[["Rank","Major_code","Major","Major_category","Total"]]
 step2.head(20) 
 ```
-
-
-
 
 <div>
 <style>
@@ -766,21 +730,12 @@ step2.head(20)
 </table>
 </div>
 
-
-
 ### 女性率が0.5(50%)を超える専攻と女性率の20件の行を表示する
-
 
 ```python
 #sql
 %sql SELECT Major,ShareWomen FROM recent_grads WHERE ShareWomen>0.5 limit 20;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -869,32 +824,13 @@ step2.head(20)
     </tr>
 </table>
 
-
-
-
 ```python
 # pandas
 major_sharewomen = df[lambda df:df["ShareWomen"]>0.5][["Major","ShareWomen"]]
 major_sharewomen.head(20)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1008,9 +944,6 @@ major_sharewomen.head(20)
 </table>
 </div>
 
-
-
-
 ```ruby
 %%ruby
 require "sqlite3"
@@ -1026,7 +959,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
     p xs
 }
 ```
-
     [7, "ACTUARIAL SCIENCE"]
     [21, "COMPUTER SCIENCE"]
     [31, "ENVIRONMENTAL ENGINEERING"]
@@ -1051,17 +983,10 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 
 ### 就職者数が10000人を超える専攻と就職者数を10件の行を表示する
 
-
 ```python
 #sql
 %sql SELECT Major,Employed FROM recent_grads WHERE Employed > 10000 limit 10;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -1110,32 +1035,13 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
     </tr>
 </table>
 
-
-
-
 ```python
 #pandas
 major_employed = df[lambda df:df["Employed"]>10000][["Major","Employed"]]
 major_employed.head(10)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1199,22 +1105,13 @@ major_employed.head(10)
 </table>
 </div>
 
-
-
 ### 女性率が50%を超えて、かつ従業員が10000人を超える専攻を10行取り出す
 Run the query above, which returns all of the female-majority majors with more than 10000 employed graduates
-
 
 ```python
 #sql
 %sql SELECT Major,ShareWomen,Employed FROM recent_grads WHERE ShareWomen>0.5 AND Employed>10000 LIMIT 10;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -1274,32 +1171,13 @@ Run the query above, which returns all of the female-majority majors with more t
     </tr>
 </table>
 
-
-
-
 ```python
 # pandas
 triple = df[lambda df: (df["Employed"]>10000) & (df["ShareWomen"] > 0.5) ][["Major","ShareWomen","Employed"]]
 triple.head(10)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1374,9 +1252,6 @@ triple.head(10)
 </table>
 </div>
 
-
-
-
 ```ruby
 %%ruby
 require "sqlite3"
@@ -1412,12 +1287,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 #sql
 %sql SELECT Major, Major_category, ShareWomen, Unemployment_rate FROM recent_grads where (Major_category = 'Engineering') AND (ShareWomen > 0.5 or Unemployment_rate < 0.051) LIMIT 10;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -1489,30 +1358,12 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 </table>
 
 
-
-
 ```python
 triple = df[lambda df:(df["Major_category"] == 'Engineering') & ((df["ShareWomen"] > 0.5) | (df["Unemployment_rate"] < 0.051)) ][["Major", "Major_category", "ShareWomen", "Unemployment_rate"]]
 triple.head(10)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1599,8 +1450,6 @@ triple.head(10)
 </div>
 
 
-
-
 ```ruby
 %%ruby
 require "sqlite3"
@@ -1631,7 +1480,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 
 ### 専攻のカテゴリが”ビジネス”か”芸術”か”ヘルス”で、就職者が20000人を超えているか非雇用率が5.1%以下で、専攻、専攻カテゴリ、就職者数、非就職者を10行知りたい
 
-
 ```python
 %sql SELECT Major, Major_category, Employed, Unemployment_rate \
 FROM recent_grads \
@@ -1639,12 +1487,6 @@ WHERE (Major_category = 'Business' OR Major_category = 'Arts' OR Major_category 
 AND (Employed > 20000 OR Unemployment_rate < 0.051) \
 LIMIT 10;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -1715,9 +1557,6 @@ LIMIT 10;
     </tr>
 </table>
 
-
-
-
 ```python
 def filt(df):
     res = ((df['Major_category']  == 'Business' ) | (df['Major_category']  == 'Arts') | (df['Major_category']  == 'Health')) & \
@@ -1728,23 +1567,7 @@ quad =  df[ filt(df) ][["Major", "Major_category", "Employed", "Unemployment_rat
 quad.head(10)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1830,9 +1653,6 @@ quad.head(10)
 </table>
 </div>
 
-
-
-
 ```ruby
 %%ruby
 require "sqlite3"
@@ -1863,7 +1683,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 
 ###  専攻をアルファベットを降順にソートして10行取り出す
 
-
 ```python
 #sql
 %sql select Major \
@@ -1871,12 +1690,6 @@ from recent_grads \
 order by Major desc \
 limit 10;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -1914,31 +1727,12 @@ limit 10;
     </tr>
 </table>
 
-
-
-
 ```python
 asd = df[["Major"]].sort_values(by=["Major"], ascending=False)
 asd.head(10)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1992,8 +1786,6 @@ asd.head(10)
 </div>
 
 
-
-
 ```ruby
 %%ruby
 require "sqlite3"
@@ -2006,7 +1798,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 }.reverse
 .slice(0..9).map { |xs| p xs["Major"]}
 ```
-
     "ZOOLOGY"
     "VISUAL AND PERFORMING ARTS"
     "UNITED STATES HISTORY"
@@ -2021,7 +1812,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
 
 ### 専攻をアルファベットで昇順、給与で降順で、20行を表示する
 
-
 ```python
 #sql
 %sql SELECT Major_category, Median, Major \
@@ -2029,12 +1819,6 @@ FROM recent_grads \
 ORDER BY Major ASC, Median DESC \
 LIMIT 20;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -2145,30 +1929,12 @@ LIMIT 20;
 </table>
 
 
-
-
 ```python
 tri = df[["Major_category", "Median", "Major"]].sort_values(by=["Major", "Median"], ascending=[True, False])
 tri.head(20)
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2304,8 +2070,6 @@ tri.head(20)
 </div>
 
 
-
-
 ```ruby
 %%ruby
 require "sqlite3"
@@ -2339,10 +2103,8 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs|
     ["BIOLOGY", 33400]
     ["BIOMEDICAL ENGINEERING", 60000]
 
-
 ## FactBook Dataset
 factbookと呼ばれるデータセットで、SQLとpandas, Rubyでの記述を示します
-
 
 ```python
 # まずSQLITEをメモリにロード
@@ -2354,17 +2116,10 @@ df = pd.read_sql_query("select * from facts;", conn)
 
 ### データに入っているbirth_rateの件数をカウント
 
-
 ```python
 # sql
 %sql SELECT COUNT(birth_rate) FROM facts;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -2376,20 +2131,12 @@ df = pd.read_sql_query("select * from facts;", conn)
 </table>
 
 
-
-
 ```python
 # pandas
 df["birth_rate"].count()
 ```
 
-
-
-
     228
-
-
-
 
 ```ruby
 %%ruby
@@ -2416,12 +2163,6 @@ p r
 FROM facts;
 ```
 
-    Done.
-
-
-
-
-
 <table>
     <tr>
         <th>SUM(birth_rate)</th>
@@ -2432,20 +2173,12 @@ FROM facts;
 </table>
 
 
-
-
 ```python
 # pandas
 df["birth_rate"].sum()
 ```
 
-
-
-
     4406.9099999999999
-
-
-
 
 ```ruby
 %%ruby
@@ -2470,12 +2203,6 @@ p r
 FROM facts;
 ```
 
-    Done.
-
-
-
-
-
 <table>
     <tr>
         <th>AVG(birth_rate)</th>
@@ -2485,20 +2212,11 @@ FROM facts;
     </tr>
 </table>
 
-
-
-
 ```python
 df["birth_rate"].mean()
 ```
 
-
-
-
     19.328552631578948
-
-
-
 
 ```ruby
 %%ruby
@@ -2523,12 +2241,6 @@ FROM facts \
 WHERE population > 20000000;
 ```
 
-    Done.
-
-
-
-
-
 <table>
     <tr>
         <th>AVG(DISTINCT birth_rate)</th>
@@ -2538,22 +2250,13 @@ WHERE population > 20000000;
     </tr>
 </table>
 
-
-
-
 ```python
 # pandas
 df[ df.population > 20000000 ][ ["birth_rate"] ].drop_duplicates().mean()
 ```
 
-
-
-
     birth_rate    20.434737
     dtype: float64
-
-
-
 
 ```ruby
 %%ruby
@@ -2592,12 +2295,6 @@ df = pd.read_sql_query("select * from recent_grads;", conn)
 FROM recent_grads \
 GROUP BY Major_category;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -2671,30 +2368,13 @@ GROUP BY Major_category;
 </table>
 
 
-
-
 ```python
 #  pandas
 df[ ["Major_category", "ShareWomen"] ].groupby( ["Major_category"]).mean()
 ```
 
 
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2776,8 +2456,6 @@ df[ ["Major_category", "ShareWomen"] ].groupby( ["Major_category"]).mean()
 </div>
 
 
-
-
 ```ruby
 %%ruby
 require 'set'
@@ -2816,19 +2494,12 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs| cols.zip(xs).to_h
 
 ### 専攻カテゴリごとの平均就職者数、全人数の平均値を計算して、"就職者数/平均人数"を算出する
 
-
 ```python
 #SQL
 %sql SELECT Major_category, AVG(Employed) / AVG(Total) AS share_employed \
 FROM recent_grads \
 GROUP BY Major_category;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -2902,8 +2573,6 @@ GROUP BY Major_category;
 </table>
 
 
-
-
 ```python
 # pandas
 df_mean = df[ ["Major_category", "Employed", "Total"] ].groupby( ["Major_category"]).mean()
@@ -2911,23 +2580,7 @@ df_mean[ "Employed/Total" ] = df_mean.apply(lambda x:x[0]/x[1],axis=1)
 df_mean
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -3045,8 +2698,6 @@ df_mean
 </div>
 
 
-
-
 ```ruby
 %%ruby
 require 'set'
@@ -3097,12 +2748,6 @@ GROUP BY Major_category \
     HAVING share_employed > .8;
 ```
 
-    Done.
-
-
-
-
-
 <table>
     <tr>
         <th>Major_category</th>
@@ -3143,8 +2788,6 @@ GROUP BY Major_category \
 </table>
 
 
-
-
 ```python
 # pandas
 df_having = df[ ["Major_category", "Employed", "Total"] ].groupby( ["Major_category"]).mean()
@@ -3152,23 +2795,7 @@ df_having[ "Employed/Total" ] = df_mean.apply(lambda x:x[0]/x[1],axis=1)
 df_having[ df_having["Employed/Total"] > 0.8 ]
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -3238,8 +2865,6 @@ df_having[ df_having["Employed/Total"] > 0.8 ]
 </div>
 
 
-
-
 ```ruby
 %%ruby
 require 'set'
@@ -3281,12 +2906,6 @@ db.execute( "SELECT * FROM recent_grads ;" ).map {  |xs| cols.zip(xs).to_h
 FROM recent_grads \
 LIMIT 10;
 ```
-
-    Done.
-
-
-
-
 
 <table>
     <tr>
@@ -3336,8 +2955,6 @@ LIMIT 10;
 </table>
 
 
-
-
 ```python
 # pandas
 df_round = df[ ["Major_category", "ShareWomen"] ]
@@ -3345,31 +2962,7 @@ df_round["round"]=  df_round.apply(lambda x:"%0.2f"%x[1], axis=1)
 df_round.head(10)
 ```
 
-    /usr/local/lib/python3.5/dist-packages/ipykernel_launcher.py:3: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-      This is separate from the ipykernel package so we can avoid doing imports until
-
-
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -3443,8 +3036,6 @@ df_round.head(10)
   </tbody>
 </table>
 </div>
-
-
 
 
 ```ruby
@@ -3647,12 +3238,6 @@ FROM recent_grads \
 GROUP BY Major_category HAVING share_degree_jobs < .3;
 ```
 
-    Done.
-
-
-
-
-
 <table>
     <tr>
         <th>Major_category</th>
@@ -3693,8 +3278,6 @@ GROUP BY Major_category HAVING share_degree_jobs < .3;
 </table>
 
 
-
-
 ```python
 # pandas
 df_having = df[ ["Major_category", "College_jobs", "Total"] ].groupby( ["Major_category"]).mean()
@@ -3703,23 +3286,7 @@ df_having = df_having[ df_having["College_jobs/Total"] < 0.3 ]
 df_having
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -3787,9 +3354,6 @@ df_having
   </tbody>
 </table>
 </div>
-
-
-
 
 ```ruby
 %%ruby
