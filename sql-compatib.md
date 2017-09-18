@@ -105,15 +105,6 @@ sqlite> PRAGMA table_info(facts);
 %sql SELECT * FROM recent_grads LIMIT 3;
 ```
 
-    The sql extension is already loaded. To reload it, use:
-      %reload_ext sql
-    
-    .
-
-
-
-
-
 <table>
     <tr>
         <th>index</th>
